@@ -85,7 +85,7 @@ app.get("/api/user/favourites", passport.authenticate('jwt', {session: false}), 
 
 // PUT /api/user/favourites/:id route – (protected using the passport.authenticate() middleware)
 app.put("/api/user/favourites/:id", passport.authenticate('jwt', {session: false}), function(req,res){
-    userService.addFavourite(req.user._id).then(fav=>{
+    userService.addFavourite(req.user._id, req.params.id).then(fav=>{
         res.status(200).json(fav);
     })
     .catch(err=>{
@@ -95,7 +95,7 @@ app.put("/api/user/favourites/:id", passport.authenticate('jwt', {session: false
 
 // DELETE /api/user/favourites/:id route – (protected using the passport.authenticate() middleware)
 app.delete("/api/user/favourites/:id", passport.authenticate('jwt', {session: false}), function(req,res){
-    userService.removeFavourite(req.user._id).then(fav=>{
+    userService.removeFavourite(req.user._id, req.params.id).then(fav=>{
         res.status(200).json(fav);
     })
     .catch(err=>{
